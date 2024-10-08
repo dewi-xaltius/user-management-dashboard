@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LoadingSpinner from './components/LoadingSpinner';
+import UserList from './components/UserList';
+
+const AddUserForm = lazy(() => import('./components/AddUserForm'));
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <h1>User Management Dashboard</h1>
+        <Suspense fallback={<LoadingSpinner />}>
+          <Routes>
+            <Route path="/add-user" element={<AddUserForm />} />
+            <Route path="/" element={<UserList />} />
+          </Routes>
+        </Suspense>
+      </div>
+    </Router>
   );
 }
 

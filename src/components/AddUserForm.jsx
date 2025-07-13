@@ -1,5 +1,9 @@
 import React, { Fragment } from 'react';
 
+// Artificial delay for Suspense fallback demo
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+await sleep(2000);
+
 const AddUserForm = () => {
   return (
     <Fragment>

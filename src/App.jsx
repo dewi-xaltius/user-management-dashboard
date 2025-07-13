@@ -1,26 +1,25 @@
-import { useState } from 'react'
-import './App.css'
+import React, { Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LoadingSpinner from './components/LoadingSpinner';
+import UserList from './components/UserList';
+import './App.css';  
+
+const AddUserForm = lazy(() => import('./components/AddUserForm'));
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+    <Router>
+      <div className="App">
+        <h1>User Management Dashboard</h1>
+        <Suspense fallback={<LoadingSpinner />}>
+          <Routes>
+            <Route path="/add-user" element={<AddUserForm />} />
+            <Route path="/" element={<UserList />} />
+          </Routes>
+        </Suspense>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </Router>
+  );
 }
 
-export default App
+export default App;
